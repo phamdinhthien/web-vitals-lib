@@ -1,0 +1,29 @@
+{
+  "name": "web-vitals-lib",
+  "version": "1.0.0",
+  "description": "A library to collect and send Web Vitals metrics to server",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "web-vitals",
+    "performance",
+    "metrics",
+    "lcp",
+    "cls",
+    "fcp",
+    "ttfb",
+    "inp"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "web-vitals": "^3.5.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Vitals Library - Demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      padding: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    .info-box {
+      background: #f0f4ff;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 4px;
+    }
+
+    .info-box h3 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .info-box p {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .metric-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      border: 2px solid #e9ecef;
+    }
+
+    .metric-card h4 {
+      color: #667eea;
+      font-size: 14px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .metric-card .value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    button.primary {
+      background: #667eea;
+      color: white;
+    }
+
+    button.primary:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    button.secondary {
+      background: #48bb78;
+      color: white;
+    }
+
+    button.secondary:hover {
+      background: #38a169;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+    }
+
+    .content {
+      margin: 30px 0;
+      padding: 20px;
+      background: #fafafa;
+      border-radius: 8px;
+      line-height: 1.8;
+      color: #555;
+    }
+
+    .heavy-task {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 20px 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.7;
+      }
+    }
+
+    .console-log {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      margin-top: 20px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .console-log p {
+      margin: 5px 0;
+      color: #4ec9b0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 Web Vitals Library Demo</h1>
+    <p class="subtitle">Test and monitor your web performance metrics</p>
+
+    <div class="info-box">
+      <h3>📊 What's Being Tracked</h3>
+      <p><strong>Batch Metrics (sent together):</strong> LCP, CLS, FCP, TTFB</p>
+      <p><strong>INP (sent separately):</strong> After 10s idle OR when leaving page</p>
+      <p><strong>API Endpoint:</strong> http://localhost:5000/api/collect</p>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <h4>LCP</h4>
+        <div class="value">-</div>
+      </div>
+      <div class="metric-card">
+        <h4>FCP</h4>
+        <div class="value">-</div>
+      </div>
+      <div class="metric-card">
+        <h4>CLS</h4>
+        <div class="value">-</div>
+      </div>
+      <div class="metric-card">
+        <h4>TTFB</h4>
+        <div class="value">-</div>
+      </div>
+      <div class="metric-card">
+        <h4>INP</h4>
+        <div class="value">-</div>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="primary" onclick="testInteraction()">Test Interaction (INP)</button>
+      <button class="secondary" onclick="addContent()">Add Dynamic Content</button>
+    </div>
+
+    <div id="dynamic-content"></div>
+
+    <div class="console-log" id="console">
+      <p>📝 Console logs will appear here...</p>
+    </div>
+  </div>
+
+  <!-- STEP 3: Load the library defer -->
+  <script defer src="./dist/web-vitals-lib.js"></script>
+  
+  <script type="module">
+    import { initWebVitals } from './src/main.js'
+    import { onLCP, onFCP, onCLS, onINP, onTTFB } from 'web-vitals/attribution'
+
+    window.onWebVitalsReady = function() {
+        WebVitalsLib.initWebVitals({
+            apiEndpoint: 'http://localhost:5000/api/collect',
+            debug: true
+        });
+    };
+
+    // Function to update metric card in UI
+    function updateMetricCard(name, value) {
+      const cards = document.querySelectorAll('.metric-card')
+      cards.forEach(card => {
+        const title = card.querySelector('h4').textContent
+        if (title === name) {
+          const valueEl = card.querySelector('.value')
+          
+          // Format value based on metric type
+          let displayValue
+          if (name === 'CLS') {
+            displayValue = value.toFixed(3)
+          } else {
+            displayValue = Math.round(value) + 'ms'
+          }
+          
+          valueEl.textContent = displayValue
+          
+          // Add color based on rating
+          const color = getRatingColor(name, value)
+          card.style.borderColor = color
+          card.style.borderWidth = '3px'
+        }
+      })
+    }
+
+    // Get rating color based on metric value
+    function getRatingColor(name, value) {
+      if (name === 'LCP') {
+        return value < 2500 ? '#48bb78' : value < 4000 ? '#ed8936' : '#f56565'
+      }
+      if (name === 'FCP') {
+        return value < 1800 ? '#48bb78' : value < 3000 ? '#ed8936' : '#f56565'
+      }
+      if (name === 'CLS') {
+        return value < 0.1 ? '#48bb78' : value < 0.25 ? '#ed8936' : '#f56565'
+      }
+      if (name === 'TTFB') {
+        return value < 800 ? '#48bb78' : value < 1800 ? '#ed8936' : '#f56565'
+      }
+      if (name === 'INP') {
+        return value < 200 ? '#48bb78' : value < 500 ? '#ed8936' : '#f56565'
+      }
+      return '#e9ecef'
+    }
+
+    // Listen to metrics and update UI in real-time
+    onLCP(metric => {
+      console.log('[UI Update] LCP:', metric.value)
+      updateMetricCard('LCP', metric.value)
+    })
+
+    onFCP(metric => {
+      console.log('[UI Update] FCP:', metric.value)
+      updateMetricCard('FCP', metric.value)
+    })
+
+    onCLS(metric => {
+      console.log('[UI Update] CLS:', metric.value)
+      updateMetricCard('CLS', metric.value)
+    })
+
+    onTTFB(metric => {
+      console.log('[UI Update] TTFB:', metric.value)
+      updateMetricCard('TTFB', metric.value)
+    })
+
+    onINP(metric => {
+      console.log('[UI Update] INP:', metric.value)
+      updateMetricCard('INP', metric.value)
+    })
+
+    // Intercept console.log to show in the page
+    const consoleDiv = document.getElementById('console')
+    const originalLog = console.log
+    console.log = function(...args) {
+      originalLog.apply(console, args)
+      const message = args.map(arg => 
+        typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+      ).join(' ')
+      
+      const p = document.createElement('p')
+      p.textContent = `${new Date().toLocaleTimeString()}: ${message}`
+      consoleDiv.appendChild(p)
+      consoleDiv.scrollTop = consoleDiv.scrollHeight
+    }
+  </script>
+
+  <script>
+    function testInteraction() {
+      // Simulate a heavy task to trigger INP
+      const start = performance.now()
+      while (performance.now() - start < 100) {
+        // Heavy computation
+      }
+      alert('Interaction completed! INP will be recorded.')
+    }
+
+    function addContent() {
+      const container = document.getElementById('dynamic-content')
+      const newDiv = document.createElement('div')
+      newDiv.className = 'heavy-task'
+      newDiv.textContent = `Dynamic Content #${container.children.length + 1}`
+      container.appendChild(newDiv)
+    }
+
+    // Add some initial content for LCP
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const container = document.getElementById('dynamic-content')
+        const hero = document.createElement('div')
+        hero.className = 'heavy-task'
+        hero.textContent = 'Large Content (for LCP)'
+        hero.style.height = '300px'
+        container.appendChild(hero)
+      }, 100)
+    })
+  </script>
+</body>
+</html>
