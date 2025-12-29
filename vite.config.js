@@ -5,8 +5,8 @@ export default defineConfig({
     lib: {
       entry: 'src/main.js',
       name: 'WebVitalsLib',
-      formats: ['es', 'iife'],
-      fileName: (format) => `web-vitals-lib${format === 'es' ? '.es' : ''}.js`
+      formats: ['es', 'umd'],
+      fileName: (format) => `web-vitals-lib.${format === 'es' ? 'es' : 'umd'}.js`
     },
     rollupOptions: {
       external: [],

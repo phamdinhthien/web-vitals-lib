@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "A library to collect and send Web Vitals metrics to server",
   "type": "module",
+  "main": "./dist/web-vitals-lib.umd.js",
+  "module": "./dist/web-vitals-lib.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/web-vitals-lib.es.js",
+      "require": "./dist/web-vitals-lib.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",

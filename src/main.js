@@ -24,14 +24,6 @@ export function initWebVitals(config = {}) {
   const batchCollector = new BatchCollector(reporter)
   const inpCollector = new INPCollector(reporter, finalConfig)
 
-  // Setup page lifecycle listeners for INP
-  // inpCollector.setupPageLifecycle()
-
-  // Also send batch metrics if page is closing and not all metrics collected yet
-  // window.addEventListener('pagehide', () => {
-  //   batchCollector.forceSend()
-  // })
-
   // Collect batch metrics (LCP, CLS, FCP, TTFB)
   onLCP((metric) => {
     if (finalConfig.debug) {

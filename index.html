@@ -188,7 +188,8 @@
     <div class="info-box">
       <h3>📊 What's Being Tracked</h3>
       <p><strong>Batch Metrics (sent together):</strong> LCP, CLS, FCP, TTFB</p>
-      <p><strong>INP (sent separately):</strong> After 10s idle OR when leaving page</p>
+      <p><strong>INP (sent automatically):</strong> Triggered when leaving page OR when new interaction has higher INP value</p>
+      <p><strong>Note:</strong> INP tracks the worst (slowest) interaction during your session</p>
       <p><strong>API Endpoint:</strong> http://localhost:5000/api/collect</p>
     </div>
 
@@ -228,10 +229,10 @@
   </div>
 
   <!-- STEP 3: Load the library defer -->
-  <script defer src="./dist/web-vitals-lib.js"></script>
-  
+  <script defer src="./dist/web-vitals-lib.umd.js"></script>
+
   <script type="module">
-    import { initWebVitals } from './src/main.js'
+    // import { initWebVitals } from './src/main.js'
     import { onLCP, onFCP, onCLS, onINP, onTTFB } from 'web-vitals/attribution'
 
     window.onWebVitalsReady = function() {

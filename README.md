@@ -12,8 +12,10 @@ A lightweight JavaScript library to collect and send Web Vitals metrics to your 
 
 ### INP Metrics (Sent Separately)
 - **INP** (Interaction to Next Paint) - Responsiveness
-  - Sent when user is idle for 10 seconds
-  - Or when user leaves/closes the page
+  - Sent automatically by web-vitals library when:
+    - User leaves/closes the page
+    - New interaction has higher INP value than previous
+  - Captures the worst responsiveness metric during page session
 
 ## 🚀 Installation
 
@@ -192,7 +194,6 @@ POST /api/collect
     {
       "name": "INP",
       "value": 350,
-      "trigger": "idle",
       "element": {
         "selector": "div.form-container > button.submit-btn"
       }
@@ -212,12 +213,12 @@ POST /api/collect
 3. If page closes before all metrics are ready, sends available metrics
 
 ### INP Flow
-1. Collects every user interaction (clicks, keypresses, etc.)
-2. Tracks only the maximum INP value
-3. Sends the maximum value when:
-   - User is idle for 10 seconds
-   - User switches tabs (`visibilitychange`)
-   - User closes the page (`pagehide`, `beforeunload`)
+1. Web-vitals library monitors all user interactions (clicks, taps, keyboard inputs)
+2. Tracks the worst (highest) INP value throughout the page session
+3. Automatically sends INP data when:
+   - User leaves/closes the page (pagehide, visibilitychange events)
+   - A new interaction produces a higher INP value than previously recorded
+4. Reports include the interaction element information for debugging
 
 ## 🧪 Testing
 
@@ -265,10 +266,8 @@ app.post('/api/collect', (req, res) => {
   metrics.forEach(metric => {
     if (metric.name === 'INP') {
       console.log('INP Data:', {
-        trigger: metric.trigger,
-        interactions: metric.interactions,
-        maxValue: metric.maxValue,
-        avgValue: metric.avgValue
+        value: metric.value,
+        element: metric.element
       })
     } else {
       console.log(`${metric.name}:`, metric.value, metric.rating)
@@ -292,9 +291,10 @@ web-vitals-lib/
 │   ├── core/
 │   │   ├── WebVitalsReporter.js # Send data to API
 │   │   ├── BatchCollector.js    # Batch metrics collector
-│   │   └── INPCollector.js      # INP collector with idle detection
+│   │   └── INPCollector.js      # INP collector (immediate send)
 │   └── utils/
-│       └── helpers.js            # Utility functions
+│       ├── helpers.js            # Utility functions
+│       └── elementInfo.js        # Element selector extraction
 ├── dist/                         # Build output
 ├── index.html                    # Demo page
 ├── package.json
@@ -307,8 +307,8 @@ web-vitals-lib/
 - ✅ Automatic metric collection
 - ✅ Single API endpoint for simplicity
 - ✅ Array-based payload format
-- ✅ INP idle detection (10s timeout)
-- ✅ Page lifecycle handling
+- ✅ Immediate INP reporting after each interaction
+- ✅ Element selector extraction for debugging
 - ✅ sendBeacon for reliability
 - ✅ Debug mode
 - ✅ Lightweight (~10KB gzipped)
