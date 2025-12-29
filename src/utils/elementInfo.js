@@ -22,10 +22,13 @@ export function extractLCPElementInfo(attribution) {
   if (!attribution || !attribution.element) return null
   
   try {
-    return {
-      selector: getSelector(attribution.element),
-      url: attribution.url || null
+    let result = {
+      selector: getSelector(attribution.element)
     }
+    if(attribution.url) {
+      result.url = attribution.url
+    }
+    return result
   } catch (error) {
     return null
   }
@@ -41,9 +44,9 @@ export function extractCLSElementInfo(attribution) {
   if (!attribution || !attribution.largestShiftTarget) return null
   
   try {
-    return [{
+    return {
       selector: getSelector(attribution.largestShiftTarget)
-    }]
+    }
   } catch (error) {
     return null
   }

@@ -230,26 +230,6 @@ npm run dev
 
 Open `http://localhost:5173` to see the demo page.
 
-### CDN Test
-
-To test different CDN loading patterns:
-
-1. Build the project: `npm run build`
-2. Test files available:
-   - `cdn-test.html` - Basic UMD/CDN test
-   - `cdn-ready-test.html` - Async loading with `window.onWebVitalsReady` (Recommended)
-   - `cdn-async-test.html` - Legacy async test
-3. Open any test file in a browser
-4. Check console logs to see the loading sequence
-
-### Manual Testing
-
-1. Open `index.html` in a browser (ES Module version)
-2. Or open `cdn-test.html` (CDN/UMD version)
-3. Click buttons to trigger interactions
-4. Check browser console for debug logs
-5. Monitor network requests to see payloads
-
 ## 🔧 Server-Side Example
 
 Simple Express.js server to receive metrics:
