@@ -1,13 +1,19 @@
-import { extractLCPElementInfo, extractCLSElementInfo } from '../utils/elementInfo.js'
+import { extractLCPElementInfo, extractCLSElementInfo, extractINPElementInfo } from '../utils/elementInfo.js'
 
 /**
- * BatchCollector - Collects LCP, CLS, FCP, TTFB metrics and sends them as a batch
+ * BatchCollector - Collects LCP, CLS, FCP, TTFB, INP metrics and sends them when page is hidden
  */
 export default class BatchCollector {
   constructor(reporter) {
     this.reporter = reporter
-    this.metrics = {}
-    this.requiredMetrics = ['LCP', 'CLS', 'FCP', 'TTFB']
+    this.metrics = []
+    
+    // Send metrics when page becomes hidden
+    addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        this.send()
+      }
+    })
   }
 
   /**
@@ -20,64 +26,48 @@ export default class BatchCollector {
       value: metric.value,
       rating: metric.rating,
       delta: metric.delta,
-      id: metric.id
+      id: metric.idm,
+      page: window.location.href
     }
 
-    // Add element information for specific metrics
-    if (metric.name === 'LCP' && metric.attribution) {
-      const elementInfo = extractLCPElementInfo(metric.attribution)
-      if (elementInfo) {
-        metricData.element = elementInfo
+
+    if(metric.attribution) {
+      // Add element information for specific metrics
+      if (metric.name === 'LCP') {
+        const elementInfo = extractLCPElementInfo(metric.attribution)
+        if (elementInfo) {
+          metricData.element = elementInfo
+        }
+      }
+      if (metric.name === 'CLS') {
+        const elementInfo = extractCLSElementInfo(metric.attribution)
+        if (elementInfo) {
+          metricData.element = elementInfo
+        }
+      }
+      if (metric.name === 'INP') {
+        const elementInfo = extractINPElementInfo(metric.attribution)
+        if (elementInfo) {
+          metricData.element = elementInfo
+        }
       }
     }
 
-    if (metric.name === 'CLS' && metric.attribution) {
-      const elementsInfo = extractCLSElementInfo(metric.attribution)
-      if (elementsInfo) {
-        metricData.elements = elementsInfo
-      }
-    }
-
-    this.metrics[metric.name] = metricData
-
-    // Check if we have all required metrics
-    if (this.hasAllMetrics()) {
-      this.send()
-    }
-  }
-
-  /**
-   * Check if all required metrics have been collected
-   * @returns {boolean}
-   */
-  hasAllMetrics() {
-    return this.requiredMetrics.every(name => this.metrics[name])
+    this.metrics.push(metricData)
   }
 
   /**
    * Send collected metrics as an array
    */
   send() {
-    if (Object.keys(this.metrics).length === 0) {
+    if (this.metrics.length === 0) {
       return
     }
 
-    // Convert metrics object to array
-    const metricsArray = Object.values(this.metrics)
-    this.reporter.send(metricsArray)
+    // Send metrics array
+    this.reporter.send(this.metrics)
     
     // Reset metrics after sending
-    this.metrics = {}
-  }
-
-  /**
-   * Force send any collected metrics (called on page unload)
-   */
-  forceSend() {
-    if (Object.keys(this.metrics).length > 0) {
-      const metricsArray = Object.values(this.metrics)
-      this.reporter.send(metricsArray)
-      this.metrics = {}
-    }
+    this.metrics = []
   }
 }

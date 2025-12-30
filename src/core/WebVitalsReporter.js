@@ -1,3 +1,5 @@
+import { getBrowserName } from '../utils/helpers.js'
+
 /**
  * WebVitalsReporter - Handles sending metrics data to API endpoint
  */
@@ -18,9 +20,7 @@ export default class WebVitalsReporter {
 
     const payload = {
       metrics: metricsArray,
-      url: window.location.href,
-      userAgent: navigator.userAgent,
-      timestamp: Date.now()
+      browser: getBrowserName()
     }
 
     if (this.config.debug) {

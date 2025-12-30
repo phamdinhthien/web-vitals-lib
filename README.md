@@ -4,18 +4,13 @@ A lightweight JavaScript library to collect and send Web Vitals metrics to your 
 
 ## 📊 Metrics Collected
 
-### Batch Metrics (Sent Together)
+All metrics are collected and sent together in a single batch when the page becomes hidden:
+
 - **LCP** (Largest Contentful Paint) - Loading performance
 - **FCP** (First Contentful Paint) - Initial render time
 - **CLS** (Cumulative Layout Shift) - Visual stability
 - **TTFB** (Time to First Byte) - Server response time
-
-### INP Metrics (Sent Separately)
 - **INP** (Interaction to Next Paint) - Responsiveness
-  - Sent automatically by web-vitals library when:
-    - User leaves/closes the page
-    - New interaction has higher INP value than previous
-  - Captures the worst responsiveness metric during page session
 
 ## 🚀 Installation
 
@@ -133,9 +128,9 @@ initWebVitals({
 
 ## 📡 API Payload Format
 
-All metrics are sent as arrays to a single endpoint.
+All metrics are sent together in a single batch when the page becomes hidden (visibilitychange event).
 
-### Batch Metrics Request
+### Request Format
 
 ```json
 POST /api/collect
@@ -147,6 +142,7 @@ POST /api/collect
       "rating": "good",
       "delta": 2500,
       "id": "v3-1703680447000-123",
+      "page": "https://example.com/page",
       "element": {
         "selector": "div.hero > img.banner",
         "url": "https://example.com/banner.jpg"
@@ -158,67 +154,74 @@ POST /api/collect
       "rating": "good",
       "delta": 0.05,
       "id": "v3-1703680447000-124",
-      "elements": [
-        {
-          "selector": "div.container > div.ad-banner"
-        }
-      ]
+      "page": "https://example.com/page",
+      "element": {
+        "selector": "div.container > div.ad-banner"
+      }
     },
     {
       "name": "FCP",
       "value": 1800,
       "rating": "good",
       "delta": 1800,
-      "id": "v3-1703680447000-125"
+      "id": "v3-1703680447000-125",
+      "page": "https://example.com/page"
     },
     {
       "name": "TTFB",
       "value": 500,
       "rating": "good",
       "delta": 500,
-      "id": "v3-1703680447000-126"
-    }
-  ],
-  "url": "https://example.com/page",
-  "userAgent": "Mozilla/5.0...",
-  "timestamp": 1703680447000
-}
-```
-
-### INP Request
-
-```json
-POST /api/collect
-{
-  "metrics": [
+      "id": "v3-1703680447000-126",
+      "page": "https://example.com/page"
+    },
     {
       "name": "INP",
       "value": 350,
+      "rating": "good",
+      "delta": 350,
+      "id": "v3-1703680447000-127",
+      "page": "https://example.com/page",
       "element": {
         "selector": "div.form-container > button.submit-btn"
       }
     }
   ],
-  "url": "https://example.com/page",
-  "userAgent": "Mozilla/5.0...",
-  "timestamp": 1703680457000
+  "browser": "Chrome"
 }
 ```
 
+### Payload Structure
+
+- **metrics**: Array of all collected metrics (LCP, FCP, CLS, TTFB, INP)
+- **browser**: Browser name (Chrome, Firefox, Safari, etc.)
+- Each metric includes:
+  - `name`: Metric name
+  - `value`: Metric value in milliseconds (or unitless for CLS)
+  - `rating`: Performance rating (good, needs-improvement, poor)
+  - `delta`: Change from previous value
+  - `id`: Unique metric identifier
+  - `page`: Current page URL
+  - `element`: (Optional) Element information for LCP, CLS, and INP
+
 ## 🎯 How It Works
 
-### Batch Metrics Flow
-1. Collects LCP, CLS, FCP, TTFB as they become available
-2. Once all 4 metrics are collected, sends them in a single request
-3. If page closes before all metrics are ready, sends available metrics
+### Metrics Collection and Sending
 
-### INP Flow
-1. Web-vitals library monitors all user interactions (clicks, taps, keyboard inputs)
-2. Tracks the worst (highest) INP value throughout the page session
-3. Automatically sends INP data when:
-   - User leaves/closes the page (pagehide, visibilitychange events)
-   - A new interaction produces a higher INP value than previously recorded
-4. Reports include the interaction element information for debugging
+1. **Collection Phase**: All Web Vitals metrics (LCP, FCP, CLS, TTFB, INP) are collected as they become available during the page session
+   - The `web-vitals` library monitors and reports each metric when it's ready
+   - Each metric is added to a batch collection array
+   - INP can be reported multiple times if `reportAllChanges: true` (tracks worst interaction)
+
+2. **Sending Phase**: All collected metrics are sent together in a **single batch request** when:
+   - The page becomes hidden (`visibilitychange` event)
+   - User navigates away, closes tab, or switches tabs
+   - This ensures reliable delivery using `navigator.sendBeacon()`
+
+3. **Element Attribution**: For debugging, the library captures element information:
+   - **LCP**: The largest element rendered (with selector and URL if image)
+   - **CLS**: Elements that caused layout shifts
+   - **INP**: The element that triggered the interaction (button, link, etc.)
 
 ## 🧪 Testing
 
@@ -241,16 +244,15 @@ const app = express()
 app.use(express.json())
 
 app.post('/api/collect', (req, res) => {
-  const { metrics, url, userAgent, timestamp } = req.body
+  const { metrics, browser } = req.body
+  
+  console.log(`Received ${metrics.length} metrics from ${browser}:`)
   
   metrics.forEach(metric => {
-    if (metric.name === 'INP') {
-      console.log('INP Data:', {
-        value: metric.value,
-        element: metric.element
-      })
-    } else {
-      console.log(`${metric.name}:`, metric.value, metric.rating)
+    console.log(`- ${metric.name}: ${metric.value} (${metric.rating}) - Page: ${metric.page}`)
+    
+    if (metric.element) {
+      console.log(`  Element: ${metric.element.selector}`)
     }
   })
   
@@ -267,11 +269,10 @@ app.listen(5000, () => {
 ```
 web-vitals-lib/
 ├── src/
-│   ├── main.js                   # Entry point
+│   ├── main.js                   # Entry point & initialization
 │   ├── core/
 │   │   ├── WebVitalsReporter.js # Send data to API
-│   │   ├── BatchCollector.js    # Batch metrics collector
-│   │   └── INPCollector.js      # INP collector (immediate send)
+│   │   └── BatchCollector.js    # Collect all metrics in batch
 │   └── utils/
 │       ├── helpers.js            # Utility functions
 │       └── elementInfo.js        # Element selector extraction
@@ -284,13 +285,15 @@ web-vitals-lib/
 
 ## 🌟 Features
 
-- ✅ Automatic metric collection
+- ✅ Automatic collection of all 5 Core Web Vitals metrics
+- ✅ Batch sending when page becomes hidden (single request)
 - ✅ Single API endpoint for simplicity
 - ✅ Array-based payload format
-- ✅ Immediate INP reporting after each interaction
-- ✅ Element selector extraction for debugging
-- ✅ sendBeacon for reliability
-- ✅ Debug mode
+- ✅ Element selector extraction for debugging (LCP, CLS, INP)
+- ✅ Reliable delivery with `navigator.sendBeacon()`
+- ✅ Fallback to `fetch` with `keepalive`
+- ✅ Browser detection
+- ✅ Debug mode with console logging
 - ✅ Lightweight (~10KB gzipped)
 - ✅ TypeScript support (coming soon)
 

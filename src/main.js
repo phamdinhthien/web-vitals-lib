@@ -1,7 +1,6 @@
 import { onLCP, onFCP, onCLS, onINP, onTTFB } from 'web-vitals/attribution'
 import WebVitalsReporter from './core/WebVitalsReporter.js'
 import BatchCollector from './core/BatchCollector.js'
-import INPCollector from './core/INPCollector.js'
 
 /**
  * Initialize Web Vitals tracking and reporting
@@ -19,10 +18,9 @@ export function initWebVitals(config = {}) {
 
   const finalConfig = { ...defaultConfig, ...config }
 
-  // Initialize reporter and collectors
+  // Initialize reporter and collector
   const reporter = new WebVitalsReporter(finalConfig)
   const batchCollector = new BatchCollector(reporter)
-  const inpCollector = new INPCollector(reporter, finalConfig)
 
   // Collect batch metrics (LCP, CLS, FCP, TTFB)
   onLCP((metric) => {
@@ -44,7 +42,7 @@ export function initWebVitals(config = {}) {
       console.log('[WebVitals] CLS:', metric.value)
     }
     batchCollector.collect(metric)
-  })
+  }, {reportAllChanges: true})
 
   onTTFB((metric) => {
     if (finalConfig.debug) {
@@ -58,17 +56,16 @@ export function initWebVitals(config = {}) {
     if (finalConfig.debug) {
       console.log('[WebVitals] INP interaction:', metric.value)
     }
-    inpCollector.collect(metric)
-  })
+    batchCollector.collect(metric)
+  }, {reportAllChanges: true})
 
   if (finalConfig.debug) {
     console.log('[WebVitals] Initialized with config:', finalConfig)
   }
 
-  // Return collectors for advanced usage if needed
+  // Return collector for advanced usage if needed
   return {
     batchCollector,
-    inpCollector,
     reporter
   }
 }
