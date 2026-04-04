@@ -777,12 +777,11 @@ export default {
   position: absolute;
   height: 8px;
   top: 4px;
-  border-radius: 2px;
   min-width: 1px;
 }
 
 .bar-redirect { background: #f59e0b; }
-.bar-queueing { background: transparent; border: 1px solid #999; height: 6px; top: 5px; border-radius: 1px; }
+.bar-queueing { background: transparent; border: 1px solid #999; height: 6px; top: 5px; }
 .bar-stalled { background: #333; }
 .bar-dns { background: #009688; }
 .bar-tcp { background: #ff9800; }
