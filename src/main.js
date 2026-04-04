@@ -12,7 +12,8 @@ import BatchCollector from './core/BatchCollector.js'
 export function initWebVitals(config = {}) {
   // Merge with default configuration
   const defaultConfig = {
-    apiEndpoint: 'http://localhost:5000/api/collect',
+    apiEndpoint: 'http://localhost:3001/api/collect',
+    appId: undefined,
     debug: false
   }
 

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head><title>CORS Test</title></head>
+<body>
+<h1>CORS Test Page</h1>
+<pre id="log"></pre>
+<script>
+const log = document.getElementById('log')
+function print(msg) { log.textContent += msg + '\n'; console.log(msg) }
+
+async function runTests() {
+  const endpoint = 'http://localhost:3001/api/collect'
+  const payload = {
+    appId: 'UbQvZmDxL55c',
+    metrics: [{ name: 'LCP', value: 2500, rating: 'good', delta: 2500, id: 'cors-test', page: location.href }],
+    browser: navigator.userAgent.includes('Chrome') ? 'Chrome' : 'Other'
+  }
+
+  // Test 1: fetch
+  print('--- Test 1: fetch with application/json ---')
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    print('OK: status ' + res.status)
+  } catch(e) {
+    print('FAIL: ' + e.message)
+  }
+
+  // Test 2: sendBeacon with Blob
+  print('--- Test 2: sendBeacon with Blob (application/json) ---')
+  try {
+    const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' })
+    const ok = navigator.sendBeacon(endpoint, blob)
+    print(ok ? 'OK: sendBeacon returned true' : 'FAIL: sendBeacon returned false')
+  } catch(e) {
+    print('FAIL: ' + e.message)
+  }
+
+  // Test 3: sendBeacon with plain string (no content-type)
+  print('--- Test 3: sendBeacon with string ---')
+  try {
+    const ok = navigator.sendBeacon(endpoint, JSON.stringify(payload))
+    print(ok ? 'OK: sendBeacon returned true' : 'FAIL: sendBeacon returned false')
+  } catch(e) {
+    print('FAIL: ' + e.message)
+  }
+
+  // Test 4: fetch with text/plain
+  print('--- Test 4: fetch with text/plain ---')
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    })
+    print('OK: status ' + res.status)
+  } catch(e) {
+    print('FAIL: ' + e.message)
+  }
+
+  // Wait and check if data arrived
+  await new Promise(r => setTimeout(r, 1000))
+  print('--- Check data ---')
+  try {
+    const res = await fetch('http://localhost:3001/api/apps/UbQvZmDxL55c/metrics')
+    const data = await res.json()
+    print('Total metrics in server: ' + data.metrics.length)
+  } catch(e) {
+    print('FAIL checking data: ' + e.message)
+  }
+}
+
+runTests()
+</script>
+</body>
+</html>

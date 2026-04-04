@@ -26,7 +26,7 @@ export default class BatchCollector {
       value: metric.value,
       rating: metric.rating,
       delta: metric.delta,
-      id: metric.idm,
+      id: metric.id,
       page: window.location.href
     }
 
@@ -64,10 +64,37 @@ export default class BatchCollector {
       return
     }
 
-    // Send metrics array
-    this.reporter.send(this.metrics)
-    
-    // Reset metrics after sending
+    // Collect resource timing entries
+    let resources = []
+    try {
+      const entries = performance.getEntriesByType('resource')
+      resources = entries.map(e => ({
+        name: e.name,
+        initiatorType: e.initiatorType,
+        startTime: Math.round(e.startTime * 100) / 100,
+        duration: Math.round(e.duration * 100) / 100,
+        redirectStart: Math.round(e.redirectStart * 100) / 100,
+        redirectEnd: Math.round(e.redirectEnd * 100) / 100,
+        fetchStart: Math.round(e.fetchStart * 100) / 100,
+        dnsStart: Math.round(e.domainLookupStart * 100) / 100,
+        dnsEnd: Math.round(e.domainLookupEnd * 100) / 100,
+        connectStart: Math.round(e.connectStart * 100) / 100,
+        connectEnd: Math.round(e.connectEnd * 100) / 100,
+        secureConnectionStart: Math.round(e.secureConnectionStart * 100) / 100,
+        requestStart: Math.round(e.requestStart * 100) / 100,
+        responseStart: Math.round(e.responseStart * 100) / 100,
+        responseEnd: Math.round(e.responseEnd * 100) / 100,
+        transferSize: e.transferSize || 0,
+        encodedBodySize: e.encodedBodySize || 0,
+        decodedBodySize: e.decodedBodySize || 0,
+        nextHopProtocol: e.nextHopProtocol || ''
+      }))
+      performance.clearResourceTimings()
+    } catch (e) {
+      // Resource Timing API not available
+    }
+
+    this.reporter.send(this.metrics, resources)
     this.metrics = []
   }
 }

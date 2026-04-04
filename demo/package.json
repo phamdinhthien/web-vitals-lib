@@ -1,0 +1,20 @@
+{
+  "name": "web-vitals-demo",
+  "version": "1.0.0",
+  "description": "Demo Vue app for testing web-vitals-lib",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5173",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.0",
+    "vue-router": "^4.3.0",
+    "web-vitals-lib": "file:.."
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "@vitejs/plugin-vue": "^5.0.0"
+  }
+}
