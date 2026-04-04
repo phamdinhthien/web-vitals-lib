@@ -15,7 +15,9 @@ const app = express()
 const PORT = process.env.PORT || 3001
 
 // Auto-create data directory on startup
-fs.mkdirSync(path.join(__dirname, 'data'), { recursive: true })
+const dataDir = path.join(__dirname, 'data')
+fs.mkdirSync(dataDir, { recursive: true })
+process.env.DATA_DIR = dataDir
 
 // CORS middleware - allow all origins, methods, and handle preflight
 app.use(cors())

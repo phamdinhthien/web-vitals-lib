@@ -4,7 +4,8 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const APPS_FILE = path.join(__dirname, '..', 'data', 'apps.json')
+const dataDir = process.env.DATA_DIR || path.join(__dirname, '..', 'data')
+const APPS_FILE = path.join(dataDir, 'apps.json')
 
 export function list() {
   return readJSON(APPS_FILE)

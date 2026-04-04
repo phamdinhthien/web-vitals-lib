@@ -3,9 +3,10 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const dataDir = process.env.DATA_DIR || path.join(__dirname, '..', 'data')
 
 function getDataFilePath(appId) {
-  return path.join(__dirname, '..', 'data', `${appId}.json`)
+  return path.join(dataDir, `${appId}.json`)
 }
 
 function calculateP75(values) {
@@ -75,7 +76,7 @@ export function getSummary(appId, page) {
 }
 
 export function getResources(appId, page) {
-  const filePath = path.join(__dirname, '..', 'data', `${appId}_resources.json`)
+  const filePath = path.join(dataDir, `${appId}_resources.json`)
   const allRecords = readJSON(filePath)
 
   if (page) {
