@@ -2,20 +2,22 @@ import express from 'express'
 import cors from 'cors'
 import fs from 'fs'
 import path from 'path'
+import { fileURLToPath } from 'url'
 
 import appsRouter from '../server/routes/apps.js'
 import collectRouter from '../server/routes/collect.js'
 import metricsRouter from '../server/routes/metrics.js'
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const app = express()
 
 // Ensure data directory exists (use /tmp on Vercel)
-const dataDir = process.env.VERCEL ? '/tmp/data' : path.join(process.cwd(), 'server', 'data')
+const dataDir = process.env.VERCEL ? '/tmp/data' : path.join(__dirname, '..', 'server', 'data')
 fs.mkdirSync(dataDir, { recursive: true })
 
 // On Vercel: copy seed data from bundled server/data/ to /tmp/data/ on cold start
 if (process.env.VERCEL) {
-  const seedDir = path.join(process.cwd(), 'server', 'data')
+  const seedDir = path.join(__dirname, '..', 'server', 'data')
   if (fs.existsSync(seedDir)) {
     const files = fs.readdirSync(seedDir).filter(f => f.endsWith('.json'))
     for (const file of files) {

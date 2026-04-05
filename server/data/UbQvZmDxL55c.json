@@ -1,0 +1,711 @@
+[
+  {
+    "name": "FCP",
+    "value": 176,
+    "rating": "good",
+    "delta": 176,
+    "id": "v3-1775276253763-5287955658083",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:17:35.384Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775276253827-6533671942662",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:17:35.384Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 15.5,
+    "rating": "good",
+    "delta": 15.5,
+    "id": "v3-1775276253763-8090227472639",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:17:35.384Z"
+  },
+  {
+    "name": "LCP",
+    "value": 840,
+    "rating": "good",
+    "delta": 840,
+    "id": "v3-1775276253763-7178525834456",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:17:35.384Z"
+  },
+  {
+    "name": "FCP",
+    "value": 204,
+    "rating": "good",
+    "delta": 204,
+    "id": "v3-1775276456178-7614291450742",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:20:57.799Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775276456238-4145457047510",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:20:57.799Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 27.699999928474426,
+    "rating": "good",
+    "delta": 27.699999928474426,
+    "id": "v3-1775276456178-1236134217936",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:20:57.799Z"
+  },
+  {
+    "name": "LCP",
+    "value": 756,
+    "rating": "good",
+    "delta": 756,
+    "id": "v3-1775276456178-6241164858682",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:20:57.799Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 64.5,
+    "rating": "good",
+    "delta": 64.5,
+    "id": "v3-1775276481607-2789729650035",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:22:46.432Z"
+  },
+  {
+    "name": "FCP",
+    "value": 3104,
+    "rating": "poor",
+    "delta": 3104,
+    "id": "v3-1775276568813-1665952484419",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:22:51.713Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775276568874-1442056350389",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:22:51.713Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 36.200000047683716,
+    "rating": "good",
+    "delta": 36.200000047683716,
+    "id": "v3-1775276568813-8328121816625",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:22:51.713Z"
+  },
+  {
+    "name": "LCP",
+    "value": 4920,
+    "rating": "poor",
+    "delta": 4920,
+    "id": "v3-1775276568813-1003015936330",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:22:51.713Z"
+  },
+  {
+    "name": "FCP",
+    "value": 188,
+    "rating": "good",
+    "delta": 188,
+    "id": "v3-1775276615199-4238471231264",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:23:36.517Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775276615240-9788156841856",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:23:36.517Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 9.899999976158142,
+    "rating": "good",
+    "delta": 9.899999976158142,
+    "id": "v3-1775276615200-2342751103083",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:23:36.517Z"
+  },
+  {
+    "name": "LCP",
+    "value": 820,
+    "rating": "good",
+    "delta": 820,
+    "id": "v3-1775276615199-2151911628024",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:23:36.517Z"
+  },
+  {
+    "name": "FCP",
+    "value": 192,
+    "rating": "good",
+    "delta": 192,
+    "id": "v3-1775277634352-6988865286849",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:40:36.834Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775277634390-9389209240538",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:40:36.834Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 18.800000071525574,
+    "rating": "good",
+    "delta": 18.800000071525574,
+    "id": "v3-1775277634352-8315832777274",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:40:36.834Z"
+  },
+  {
+    "name": "LCP",
+    "value": 892,
+    "rating": "good",
+    "delta": 892,
+    "id": "v3-1775277634352-4071963587646",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:40:36.834Z"
+  },
+  {
+    "name": "FCP",
+    "value": 412,
+    "rating": "good",
+    "delta": 412,
+    "id": "v3-1775277974573-2188012200493",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:47:30.540Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775277974627-9126555029805",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:47:30.540Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 112.20000004768372,
+    "rating": "good",
+    "delta": 112.20000004768372,
+    "id": "v3-1775277974573-1349538854107",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:47:30.540Z"
+  },
+  {
+    "name": "LCP",
+    "value": 1028,
+    "rating": "good",
+    "delta": 1028,
+    "id": "v3-1775277974573-4276210679770",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:47:30.540Z"
+  },
+  {
+    "name": "FCP",
+    "value": 284,
+    "rating": "good",
+    "delta": 284,
+    "id": "v3-1775278106685-6671892944907",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:48:33.391Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775278106745-9902587925298",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:48:33.391Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 25.09999990463257,
+    "rating": "good",
+    "delta": 25.09999990463257,
+    "id": "v3-1775278106685-7483678791242",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:48:33.391Z"
+  },
+  {
+    "name": "LCP",
+    "value": 916,
+    "rating": "good",
+    "delta": 916,
+    "id": "v3-1775278106685-3364841891477",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:48:33.391Z"
+  },
+  {
+    "name": "FCP",
+    "value": 184,
+    "rating": "good",
+    "delta": 184,
+    "id": "v3-1775278113411-3749026611738",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:48:35.602Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775278113460-9745826604431",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:48:35.602Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 38.89999997615814,
+    "rating": "good",
+    "delta": 38.89999997615814,
+    "id": "v3-1775278113411-2391373435094",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:48:35.602Z"
+  },
+  {
+    "name": "LCP",
+    "value": 752,
+    "rating": "good",
+    "delta": 752,
+    "id": "v3-1775278113411-2320528131064",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:48:35.602Z"
+  },
+  {
+    "name": "FCP",
+    "value": 188,
+    "rating": "good",
+    "delta": 188,
+    "id": "v3-1775278124485-2062757936450",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:48:46.168Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775278124528-3023758686823",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:48:46.168Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 21.700000047683716,
+    "rating": "good",
+    "delta": 21.700000047683716,
+    "id": "v3-1775278124485-4274024923754",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:48:46.168Z"
+  },
+  {
+    "name": "LCP",
+    "value": 704,
+    "rating": "good",
+    "delta": 704,
+    "id": "v3-1775278124485-9667309453510",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T04:48:46.168Z"
+  },
+  {
+    "name": "FCP",
+    "value": 348,
+    "rating": "good",
+    "delta": 348,
+    "id": "v3-1775281365275-2252748074114",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:42:51.591Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775281365447-5598209065973",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:42:51.591Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 91.39999997615814,
+    "rating": "good",
+    "delta": 91.39999997615814,
+    "id": "v3-1775281365276-2173308423862",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:42:51.591Z"
+  },
+  {
+    "name": "LCP",
+    "value": 916,
+    "rating": "good",
+    "delta": 916,
+    "id": "v3-1775281365275-5910862235990",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:42:51.591Z"
+  },
+  {
+    "name": "INP",
+    "value": 48,
+    "rating": "good",
+    "delta": 48,
+    "id": "v3-1775281365276-2104446746360",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.interaction-demo>div.button-grid>button.color-button"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:42:51.591Z"
+  },
+  {
+    "name": "FCP",
+    "value": 208,
+    "rating": "good",
+    "delta": 208,
+    "id": "v3-1775281408376-7421619035410",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:43:31.005Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775281408433-4269914148911",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:43:31.005Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 29.5,
+    "rating": "good",
+    "delta": 29.5,
+    "id": "v3-1775281408376-6231968439529",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:43:31.005Z"
+  },
+  {
+    "name": "LCP",
+    "value": 756,
+    "rating": "good",
+    "delta": 756,
+    "id": "v3-1775281408376-1408787758730",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:43:31.005Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 107.30000007152557,
+    "rating": "good",
+    "delta": 107.30000007152557,
+    "id": "v3-1775282108923-8883037226898",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:56:04.370Z"
+  },
+  {
+    "name": "FCP",
+    "value": 196,
+    "rating": "good",
+    "delta": 196,
+    "id": "v3-1775282164403-3102343707550",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:56:05.761Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775282164446-8272613845669",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:56:05.761Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 49.800000071525574,
+    "rating": "good",
+    "delta": 49.800000071525574,
+    "id": "v3-1775282164404-2501031025159",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:56:05.761Z"
+  },
+  {
+    "name": "LCP",
+    "value": 712,
+    "rating": "good",
+    "delta": 712,
+    "id": "v3-1775282164403-6584396791269",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T05:56:05.761Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 38,
+    "rating": "good",
+    "delta": 38,
+    "id": "v3-1775282404313-4732918387748",
+    "page": "http://localhost:5173/about",
+    "browser": "Safari",
+    "receivedAt": "2026-04-04T06:00:24.156Z"
+  },
+  {
+    "name": "FCP",
+    "value": 444,
+    "rating": "good",
+    "delta": 444,
+    "id": "v3-1775282404313-9913517735344",
+    "page": "http://localhost:5173/about",
+    "browser": "Safari",
+    "receivedAt": "2026-04-04T06:00:24.156Z"
+  },
+  {
+    "name": "LCP",
+    "value": 2922,
+    "rating": "needs-improvement",
+    "delta": 2922,
+    "id": "v3-1775282404312-8719173208117",
+    "page": "http://localhost:5173/about",
+    "element": {
+      "selector": "main.content>div.about>section.dynamic-content>div.content-area>div.loaded-content>img.dynamic-image",
+      "url": "https://picsum.photos/800/300"
+    },
+    "browser": "Safari",
+    "receivedAt": "2026-04-04T06:00:24.156Z"
+  },
+  {
+    "name": "INP",
+    "value": 16,
+    "rating": "good",
+    "delta": 16,
+    "id": "v3-1775282404313-9562721679476",
+    "page": "http://localhost:5173/about",
+    "element": {
+      "selector": "html>body"
+    },
+    "browser": "Safari",
+    "receivedAt": "2026-04-04T06:00:24.156Z"
+  },
+  {
+    "name": "FCP",
+    "value": 196,
+    "rating": "good",
+    "delta": 196,
+    "id": "v3-1775282595697-3402658373002",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T06:03:21.355Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775282595754-6125197651614",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T06:03:21.355Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 28.899999976158142,
+    "rating": "good",
+    "delta": 28.899999976158142,
+    "id": "v3-1775282595697-9222639009014",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T06:03:21.355Z"
+  },
+  {
+    "name": "LCP",
+    "value": 864,
+    "rating": "good",
+    "delta": 864,
+    "id": "v3-1775282595697-7927083007238",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T06:03:21.355Z"
+  },
+  {
+    "name": "INP",
+    "value": 8,
+    "rating": "good",
+    "delta": 8,
+    "id": "v3-1775282595697-3580296369684",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "html>body"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T06:03:21.355Z"
+  },
+  {
+    "name": "FCP",
+    "value": 696,
+    "rating": "good",
+    "delta": 696,
+    "id": "v3-1775282615001-7097513340517",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T06:03:37.501Z"
+  },
+  {
+    "name": "CLS",
+    "value": 0,
+    "rating": "good",
+    "delta": 0,
+    "id": "v3-1775282615055-6210320221257",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T06:03:37.501Z"
+  },
+  {
+    "name": "TTFB",
+    "value": 494.60000002384186,
+    "rating": "good",
+    "delta": 494.60000002384186,
+    "id": "v3-1775282615001-6018127716488",
+    "page": "http://localhost:5173/",
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T06:03:37.501Z"
+  },
+  {
+    "name": "LCP",
+    "value": 1232,
+    "rating": "good",
+    "delta": 1232,
+    "id": "v3-1775282615001-2050627365230",
+    "page": "http://localhost:5173/",
+    "element": {
+      "selector": "#app>main.content>div.home>section.hero>img.hero-image",
+      "url": "https://picsum.photos/1200/600"
+    },
+    "browser": "Chrome",
+    "receivedAt": "2026-04-04T06:03:37.501Z"
+  }
+]

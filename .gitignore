@@ -28,5 +28,5 @@ yarn-error.log*
 .env.local
 .env.*.local
 
-# Server data
-server/data/
+# Server data (keep seed JSON for Vercel demo)
+# server/data/
