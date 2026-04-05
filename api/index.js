@@ -48,6 +48,24 @@ app.use((req, res, next) => {
   next()
 })
 
+// Debug endpoint - check file paths on Vercel
+app.get('/api/debug', (req, res) => {
+  const __dir = path.dirname(fileURLToPath(import.meta.url))
+  const seedDir = path.join(__dir, '..', 'server', 'data')
+  const info = {
+    cwd: process.cwd(),
+    __dirname: __dir,
+    dataDir,
+    seedDir,
+    seedDirExists: fs.existsSync(seedDir),
+    dataDirExists: fs.existsSync(dataDir),
+    seedFiles: fs.existsSync(seedDir) ? fs.readdirSync(seedDir) : [],
+    dataFiles: fs.existsSync(dataDir) ? fs.readdirSync(dataDir) : [],
+    isVercel: !!process.env.VERCEL
+  }
+  res.json(info)
+})
+
 app.use('/api/apps', appsRouter)
 app.use('/api/collect', collectRouter)
 app.use('/api', metricsRouter)
