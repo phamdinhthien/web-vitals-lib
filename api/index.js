@@ -13,6 +13,20 @@ const app = express()
 const dataDir = process.env.VERCEL ? '/tmp/data' : path.join(process.cwd(), 'server', 'data')
 fs.mkdirSync(dataDir, { recursive: true })
 
+// On Vercel: copy seed data from bundled server/data/ to /tmp/data/ on cold start
+if (process.env.VERCEL) {
+  const seedDir = path.join(process.cwd(), 'server', 'data')
+  if (fs.existsSync(seedDir)) {
+    const files = fs.readdirSync(seedDir).filter(f => f.endsWith('.json'))
+    for (const file of files) {
+      const dest = path.join(dataDir, file)
+      if (!fs.existsSync(dest)) {
+        fs.copyFileSync(path.join(seedDir, file), dest)
+      }
+    }
+  }
+}
+
 // Export data dir for services to use
 process.env.DATA_DIR = dataDir
 
