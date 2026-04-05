@@ -11,26 +11,41 @@ import metricsRouter from '../server/routes/metrics.js'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const app = express()
 
-// Ensure data directory exists (use /tmp on Vercel)
-const dataDir = process.env.VERCEL ? '/tmp/data' : path.join(__dirname, '..', 'server', 'data')
-fs.mkdirSync(dataDir, { recursive: true })
+// Resolve data directory
+const bundledDataDir = path.join(__dirname, '..', 'server', 'data')
 
-// On Vercel: copy seed data from bundled server/data/ to /tmp/data/ on cold start
 if (process.env.VERCEL) {
-  const seedDir = path.join(__dirname, '..', 'server', 'data')
-  if (fs.existsSync(seedDir)) {
-    const files = fs.readdirSync(seedDir).filter(f => f.endsWith('.json'))
-    for (const file of files) {
-      const dest = path.join(dataDir, file)
-      if (!fs.existsSync(dest)) {
-        fs.copyFileSync(path.join(seedDir, file), dest)
+  // On Vercel: try /tmp/data first, copy seed data there on cold start
+  const tmpDataDir = '/tmp/data'
+  fs.mkdirSync(tmpDataDir, { recursive: true })
+
+  // Try multiple possible locations for bundled seed data
+  const possibleSeedDirs = [
+    bundledDataDir,
+    path.join(process.cwd(), 'server', 'data'),
+    path.join('/var/task', 'server', 'data')
+  ]
+
+  for (const seedDir of possibleSeedDirs) {
+    if (fs.existsSync(seedDir)) {
+      const files = fs.readdirSync(seedDir).filter(f => f.endsWith('.json'))
+      if (files.length > 0) {
+        for (const file of files) {
+          const dest = path.join(tmpDataDir, file)
+          // Always overwrite on cold start to ensure latest seed data
+          fs.copyFileSync(path.join(seedDir, file), dest)
+        }
+        break
       }
     }
   }
-}
 
-// Export data dir for services to use
-process.env.DATA_DIR = dataDir
+  process.env.DATA_DIR = tmpDataDir
+} else {
+  // Local dev: use server/data directly
+  fs.mkdirSync(bundledDataDir, { recursive: true })
+  process.env.DATA_DIR = bundledDataDir
+}
 
 app.use(cors())
 app.options('*', cors())
@@ -50,17 +65,18 @@ app.use((req, res, next) => {
 
 // Debug endpoint - check file paths on Vercel
 app.get('/api/debug', (req, res) => {
-  const __dir = path.dirname(fileURLToPath(import.meta.url))
-  const seedDir = path.join(__dir, '..', 'server', 'data')
+  const activeDataDir = process.env.DATA_DIR
+  const seedDir = path.join(__dirname, '..', 'server', 'data')
   const info = {
     cwd: process.cwd(),
-    __dirname: __dir,
-    dataDir,
+    __dirname,
+    activeDataDir,
     seedDir,
+    bundledDataDir,
     seedDirExists: fs.existsSync(seedDir),
-    dataDirExists: fs.existsSync(dataDir),
+    dataDirExists: fs.existsSync(activeDataDir),
     seedFiles: fs.existsSync(seedDir) ? fs.readdirSync(seedDir) : [],
-    dataFiles: fs.existsSync(dataDir) ? fs.readdirSync(dataDir) : [],
+    dataFiles: fs.existsSync(activeDataDir) ? fs.readdirSync(activeDataDir) : [],
     isVercel: !!process.env.VERCEL
   }
   res.json(info)

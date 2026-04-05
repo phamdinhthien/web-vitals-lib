@@ -3,10 +3,14 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const dataDir = process.env.DATA_DIR || path.join(__dirname, '..', 'data')
+const defaultDataDir = path.join(__dirname, '..', 'data')
+
+function getDataDir() {
+  return process.env.DATA_DIR || defaultDataDir
+}
 
 export async function ingest(appId, metrics, browser) {
-  const filePath = path.join(dataDir, `${appId}.json`)
+  const filePath = path.join(getDataDir(), `${appId}.json`)
   const receivedAt = new Date().toISOString()
 
   const enriched = metrics.map(m => ({
@@ -19,7 +23,7 @@ export async function ingest(appId, metrics, browser) {
 }
 
 export async function ingestResources(appId, page, resources, browser) {
-  const filePath = path.join(dataDir, `${appId}_resources.json`)
+  const filePath = path.join(getDataDir(), `${appId}_resources.json`)
   const receivedAt = new Date().toISOString()
 
   const record = {

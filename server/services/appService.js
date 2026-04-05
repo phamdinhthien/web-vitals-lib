@@ -4,15 +4,18 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const dataDir = process.env.DATA_DIR || path.join(__dirname, '..', 'data')
-const APPS_FILE = path.join(dataDir, 'apps.json')
+const defaultDataDir = path.join(__dirname, '..', 'data')
+
+function getDataDir() {
+  return process.env.DATA_DIR || defaultDataDir
+}
 
 export function list() {
-  return readJSON(APPS_FILE)
+  return readJSON(path.join(getDataDir(), 'apps.json'))
 }
 
 export function findById(appId) {
-  const apps = readJSON(APPS_FILE)
+  const apps = readJSON(path.join(getDataDir(), 'apps.json'))
   return apps.find(a => a.appId === appId) || null
 }
 
@@ -22,8 +25,9 @@ export async function register(name) {
     name,
     createdAt: new Date().toISOString()
   }
-  const apps = readJSON(APPS_FILE)
+  const appsFile = path.join(getDataDir(), 'apps.json')
+  const apps = readJSON(appsFile)
   apps.push(app)
-  await writeJSON(APPS_FILE, apps)
+  await writeJSON(appsFile, apps)
   return app
 }
